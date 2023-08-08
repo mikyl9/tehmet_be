@@ -5,23 +5,16 @@ from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
 
-class SendEmailService:
+class EmailService:
     @classmethod
     def _send_email(cls, to: str, from_email: str, subject: str, message: str) -> None:
-        message = EmailMessage(
-            to=(to,), from_email=from_email, subject=subject, body=message
-        )
-        message.content_subtype = "html"
-        message.send()
+        email = EmailMessage(to=(to,), from_email=from_email, subject=subject, body=message)
+        email.send()
 
     @classmethod
-    def send_email_template(
-        cls, to: str, subject: str, template: str, **kwargs
-    ) -> None:
+    def send_email_template(cls, to: str, subject: str, template: str, **kwargs) -> None:
         message = get_template(template).render(kwargs)
-        cls._send_email(
-            to=to, from_email=settings.EMAIL_HOST_USER, subject=subject, message=message
-        )
+        cls._send_email(to=to, from_email=settings.EMAIL_HOST_USER, subject=subject, message=message)
 
 
 class TelegramService:
@@ -33,21 +26,19 @@ class TelegramService:
         return r.status_code
 
     @classmethod
-    def send_telegram_message_template(cls, chat_id: int, template: str, **kwargs):
+    def send_telegram_message_template(cls, chat_id: int, template: str, **kwargs) -> None:
         message = template.format(kwargs)
         cls._send_message(chat_id=chat_id, message=message)
 
 
 @shared_task
 def send_feedback_by_email(to, **kwargs):
-    SendEmailService.send_email_template(
-        to=to, subject="Новая заявка", template="contact_us.html", **kwargs
+    EmailService.send_email_template(
+        to=to, subject="Новая форма обратной связи Tehmet", template="standard_form.html", **kwargs
     )
 
 
 @shared_task
 def send_feedback_by_telegram(chat_id: int, **kwargs):
     message = "Новое обращение\nemail - {email}\nname - {name}\nmessage - {message}\ncreated - {created}"
-    TelegramService.send_telegram_message_template(
-        chat_id=chat_id, template=message, **kwargs
-    )
+    TelegramService.send_telegram_message_template(chat_id=chat_id, template=message, **kwargs)

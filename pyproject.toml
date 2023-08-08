@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+ignore_missing_imports_per_module = true
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+exclude = ["venv", "migrations"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings"
