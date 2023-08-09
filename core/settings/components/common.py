@@ -129,6 +129,7 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
+# Email
 EMAIL_ACTIVE = bool(strtobool(os.environ.get("EMAIL_ACTIVE", default="1")))
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST", default="smtp.gmail.com")
@@ -139,10 +140,10 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_CUSTOMER_EMAIL = os.environ.get("EMAIL_CUSTOMER_EMAIL")
 
-# Celery
+# Telegram
+TELEGRAM_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID", 0))
 
-CELERY_BROKER_URL = os.environ.get(
-    "CELERY_BROKER_REDIS_URL", default="redis://localhost:6379"
-)
+# Celery
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_REDIS_URL", default="redis://localhost:6379")
 CELERY_TIMEZONE = "UTC"
 CELERY_ENABLE_UTC = True

@@ -32,13 +32,13 @@ class TelegramService:
 
 
 @shared_task
-def send_feedback_by_email(to, **kwargs):
+def send_standard_feedback_by_email(to, **kwargs):
     EmailService.send_email_template(
-        to=to, subject="Новая форма обратной связи Tehmet", template="standard_form.html", **kwargs
+        to=to, subject="Новое обращение Tehmet", template="standard_feedback.html", **kwargs
     )
 
 
 @shared_task
-def send_feedback_by_telegram(chat_id: int, **kwargs):
+def send_standard_feedback_by_telegram(chat_id: int, **kwargs):
     message = "Новое обращение\nemail - {email}\nname - {name}\nmessage - {message}\ncreated - {created}"
     TelegramService.send_telegram_message_template(chat_id=chat_id, template=message, **kwargs)
