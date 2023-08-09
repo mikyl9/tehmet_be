@@ -7,7 +7,7 @@ services:
       - proxy
     env_file:
       - .env
-    command: bash -c "python manage.py runserver 0.0.0.0:8080"
+    command: sh start.sh
     depends_on:
       - postgres
       - redis

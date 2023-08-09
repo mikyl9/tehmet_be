@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from feedback.views import EmailFormView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin24/", admin.site.urls),
     path("api/v1/feedback/", EmailFormView.as_view(), name="feedback"),
 ]
