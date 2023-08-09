@@ -11,8 +11,8 @@ services:
     depends_on:
       - postgres
       - redis
-    expose:
-      - 8000
+    ports:
+      - 8080:8080
     volumes:
     - .:/code
     - ./media/:/media/
@@ -35,7 +35,7 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - 80:80
+      - 1337:80
     depends_on:
       - tehmet
       - postgres
