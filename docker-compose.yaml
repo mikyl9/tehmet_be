@@ -25,8 +25,6 @@ services:
       - 5437:${DB_PORT}
     expose:
       - ${DB_PORT}
-    networks:
-      - proxy
     volumes:
       - postgres_data:/var/lib/postgresql/data_atl/
 
@@ -36,7 +34,6 @@ services:
       - 1337:80
     depends_on:
       - tehmet
-      - postgres
     volumes:
       - ./media/:/media/
 
@@ -46,8 +43,6 @@ services:
       - .env
     command: celery -A core worker -B -l info
     restart: always
-    networks:
-      - proxy
     depends_on:
       - tehmet
       - redis
@@ -55,15 +50,8 @@ services:
   redis:
     hostname: redis
     image: redis:alpine
-    networks:
-      - proxy
     expose:
       - 6379
-
-networks:
-  proxy:
-    driver: bridge
-
 
 volumes:
   postgres_data:
