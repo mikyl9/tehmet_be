@@ -31,6 +31,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data_atl/
 
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - tehmet
+
   celery:
     build: .
     env_file:
