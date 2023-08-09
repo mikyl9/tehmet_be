@@ -5,11 +5,7 @@ from .models import Project
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = (
-        "preview",
-        "title",
-        "created_at",
-    )
+    list_display = ("id",)
 
     def preview(self, obj):
         if obj.logo:
