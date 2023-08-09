@@ -11,11 +11,11 @@ services:
     depends_on:
       - postgres
       - redis
-    expose:
-      - 8080
+    ports:
+      - 8080:8080
     volumes:
     - .:/code
-    - ./media/:/media
+    - ./media/:/media/
 
   postgres:
     image: postgres:13.0
@@ -40,7 +40,7 @@ services:
       - tehmet
       - postgres
     volumes:
-      - ./media/:/media
+      - ./media/:/media/
 
   celery:
     build: .
