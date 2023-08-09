@@ -15,11 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
 from feedback.views import EmailFormView
+from projects.views import ProjectViewSet
+
+projects_router = DefaultRouter()
+projects_router.register("", ProjectViewSet, "projects")
 
 urlpatterns = [
     path("admin24/", admin.site.urls),
+    path("api/v1/projects/", include(projects_router.urls)),
     path("api/v1/feedback/", EmailFormView.as_view(), name="feedback"),
 ]
