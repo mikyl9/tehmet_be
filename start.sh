@@ -7,5 +7,4 @@ export MAX_REQUESTS=${MAX_REQUESTS:-2500}
 python manage.py migrate
 python manage.py collectstatic --noinput
 
-# exec gunicorn -b 0.0.0.0:8080 -w "$WORKER_COUNT" --max-requests "$MAX_REQUESTS" core.wsgi:application
-exec python manage.py runserver 0.0.0.0:8080
+exec gunicorn -b 0.0.0.0:8080 -w "$WORKER_COUNT" --max-requests "$MAX_REQUESTS" core.wsgi:application
