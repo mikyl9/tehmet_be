@@ -141,7 +141,8 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_CUSTOMER_EMAIL = os.environ.get("EMAIL_CUSTOMER_EMAIL")
 
 # Telegram
-TELEGRAM_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID", 0))
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = int(os.environ.get("TELEGRAM_CHAT_ID"))
 
 # Celery
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_REDIS_URL", default="redis://localhost:6379")

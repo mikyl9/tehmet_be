@@ -21,7 +21,7 @@ class TelegramService:
     @classmethod
     def _send_message(cls, chat_id: int, message: str) -> int:
         r = requests.post(
-            f"https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+            f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
         )
         return r.status_code
 
