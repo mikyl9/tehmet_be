@@ -15,7 +15,7 @@ services:
       - 8080:8080
     volumes:
     - .:/code
-    - ./media:/app/media
+    - ./media/:/media
 
   postgres:
     image: postgres:13.0
@@ -40,7 +40,7 @@ services:
       - tehmet
       - postgres
     volumes:
-      - ./media:/app/media
+      - ./media/:/media
 
   celery:
     build: .
