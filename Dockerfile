@@ -11,6 +11,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-RUN mkdir /media
+RUN mkdir /media/
 
 COPY . .
