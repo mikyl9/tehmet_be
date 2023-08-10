@@ -3,16 +3,18 @@ version: '3.7'
 services:
   tehmet:
     build: .
+    networks:
+      - proxy
     env_file:
       - .env
-    command: sh start.sh
-    expose:
-      - "8080"
+    command: bash -c "python manage.py runserver 0.0.0.0:8080"
     depends_on:
       - postgres
       - redis
+    ports:
+      - 8080:8080
     volumes:
-    - ./media/:/media/
+    - .:/code
 
   postgres:
     image: postgres:13.0
@@ -24,18 +26,10 @@ services:
       - 5437:${DB_PORT}
     expose:
       - ${DB_PORT}
+    networks:
+      - proxy
     volumes:
       - postgres_data:/var/lib/postgresql/data_atl/
-
-  nginx:
-    build: ./nginx
-    ports:
-      - 1337:80
-    depends_on:
-      - tehmet
-      - postgres
-    volumes:
-      - ./media/:/media/
 
   celery:
     build: .
@@ -43,6 +37,8 @@ services:
       - .env
     command: celery -A core worker -B -l info
     restart: always
+    networks:
+      - proxy
     depends_on:
       - tehmet
       - redis
@@ -50,9 +46,14 @@ services:
   redis:
     hostname: redis
     image: redis:alpine
+    networks:
+      - proxy
     expose:
       - 6379
 
+networks:
+  proxy:
+    driver: bridge
+
 volumes:
   postgres_data:
-  media_data:
