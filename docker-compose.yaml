@@ -14,7 +14,8 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - media_volume:/app/media
+      - .:/app
+      - media_volume:/app
 
   postgres:
     image: postgres:13.0
@@ -38,7 +39,7 @@ services:
     networks:
       - proxy
     volumes:
-      - media_volume:/app/media
+      - media_volume:/app
 
   celery:
     build: .
