@@ -32,5 +32,5 @@ urlpatterns = [
     path("api/v1/feedback/", EmailFormView.as_view(), name="feedback"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# TODO add AWS service
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
